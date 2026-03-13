@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\LibraryApi",
+    "\\src\\LibraryClient"
+  ],
+  "SelectedNode": "\\src\\LibraryApi\\appsettings.Development.json",
+  "PreviewInSolutionExplorer": false
+}
