@@ -1,26 +1,25 @@
 <Solution>
-  <Folder Name="/Solution Items/">
-    <File Path="docker-compose.yml" />
-    <File Path="Dockerfile.txt" />
-  </Folder>
-  <Folder Name="/Solution Items/granafa/" />
-  <Folder Name="/Solution Items/granafa/provisioning/" />
-  <Folder Name="/Solution Items/granafa/provisioning/dashboards/">
-    <File Path="dashboard.yml" />
-    <File Path="library-dashboard.json" />
-  </Folder>
-  <Folder Name="/Solution Items/granafa/provisioning/datasources/">
-    <File Path="datasource.yml" />
-  </Folder>
-  <Folder Name="/Solution Items/Nginx/">
+  <Folder Name="/Nginx/">
     <File Path="nginx.conf" />
   </Folder>
-  <Folder Name="/Solution Items/Prometheus/">
+  <Folder Name="/Prometheus/">
     <File Path="prometheus.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/LibraryApi/LibraryApi.csproj" />
     <Project Path="src/LibraryClient/LibraryClient.csproj" />
+  </Folder>
+  <Folder Name="/src/granafa/" />
+  <Folder Name="/src/granafa/provisioning/" />
+  <Folder Name="/src/granafa/provisioning/dashboards/">
+    <File Path="dashboard.yml" />
+    <File Path="library-dashboard.json" />
+  </Folder>
+  <Folder Name="/src/granafa/provisioning/datasources/">
+    <File Path="datasource.yml" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/LibraryApi.Tests/LibraryApi.Tests.csproj" />

@@ -17,3 +17,79 @@ services:
       retries: 5
     networks:
       - library-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: library-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - library-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: library-api
+    environment:
+      - CONNECTION_STRING=Host=postgres;Port=5432;Database=librarydb;Username=postgres;Password=postgres
+      - REDIS_CONNECTION=redis:6379
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - library-network
+  nginx:
+    image: nginx:alpine
+    container_name: library-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+    networks:
+      - library-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: library-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - library-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: library-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./grafana/provisioning/dashboards/dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml:ro
+      - ./grafana/provisioning/dashboards/library-dashboard.json:/var/lib/grafana/dashboards/library-dashboard.json:ro
+    depends_on:
+      - prometheus
+    networks:
+      - library-network
+
+volumes:
+  postgres_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  library-network:
+    driver: bridge
