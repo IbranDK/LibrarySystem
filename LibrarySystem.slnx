@@ -7,6 +7,9 @@
   <Folder Name="/Solution Items/Nginx/">
     <File Path="nginx.conf" />
   </Folder>
+  <Folder Name="/Solution Items/Prometheus/">
+    <File Path="prometheus.yml" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/LibraryApi/LibraryApi.csproj" />
     <Project Path="src/LibraryClient/LibraryClient.csproj" />
