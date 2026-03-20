@@ -55,7 +55,7 @@ docker compose up --build
 cd src/LibraryClient
 dotnet run -- http://localhost:8080
 Или
-.\start.ps1 - скрипт запуска
+.\start.ps1 - скрипт запуска графического интерфейса. Графический интерфейс: http://localhost:8080/
 Скрипт остановки:
 .\stop.ps1
 ```
