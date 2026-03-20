@@ -54,7 +54,15 @@ docker compose up --build
 ```bash
 cd src/LibraryClient
 dotnet run -- http://localhost:8080
+
+или
+
+.\start.ps1 - uhfabxtcrbq bynthatqc
+
+Скрипт отановки:
+.\stop.ps1
 ```
+
 ### Тесты
 ```bash
 dotnet test
