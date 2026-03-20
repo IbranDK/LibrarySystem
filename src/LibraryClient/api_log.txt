@@ -1,0 +1,4 @@
+=== API Log Started: 20.03.2026 21:32:51 ===
+[2026-03-20 21:32:52] GET /api/books | Status: 200 | Time: 525ms
+[2026-03-20 21:32:52] GET /api/books/1 | Status: 200 | Time: 213ms
+[2026-03-20 21:32:52] POST /api/books | Status: 201 | Time: 146ms

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система управления библиотекой</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            background: #e9ecef;
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Система управления библиотекой</h1>
+            <p>Веб-интерфейс для управления книгами и читателями</p>
+        </header>
+
+        <nav>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('books')">Книги</button>
+                <button class="tab-btn" onclick="switchTab('readers')">Читатели</button>
+                <button class="tab-btn" onclick="switchTab('loans')">Выдачи</button>
+            </div>
+        </nav>
+
+        <div class="content">
+            <!-- Вкладка "Книги" -->
+            <div id="books-tab" class="tab-content active">
+                <div class="controls">
+                    <button class="btn btn-success" onclick="openAddBookModal()">➕ Добавить книгу</button>
+                    <button class="btn" onclick="loadBooks()">🔄 Обновить</button>
+                </div>
+                <div id="books-error" class="error" style="display:none;"></div>
+                <div id="books-loading" class="loading" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Загрузка...</p>
+                </div>
+                <div id="books-list"></div>
+            </div>
+
+            <!-- Вкладка "Читатели" -->
+            <div id="readers-tab" class="tab-content">
+                <div class="controls">
+                    <button class="btn btn-success" onclick="openAddReaderModal()">➕ Добавить читателя</button>
+                    <button class="btn" onclick="loadReaders()">🔄 Обновить</button>
+                </div>
+                <div id="readers-error" class="error" style="display:none;"></div>
+                <div id="readers-loading" class="loading" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Загрузка...</p>
+                </div>
+                <div id="readers-list"></div>
+            </div>
+
+            <!-- Вкладка "Выдачи" -->
+            <div id="loans-tab" class="tab-content">
+                <div class="controls">
+                    <button class="btn btn-success" onclick="openAddLoanModal()">➕ Выдать книгу</button>
+                    <button class="btn" onclick="loadLoans()">🔄 Обновить</button>
+                </div>
+                <div id="loans-error" class="error" style="display:none;"></div>
+                <div id="loans-loading" class="loading" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Загрузка...</p>
+                </div>
+                <div id="loans-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления/редактирования книги -->
+    <div id="book-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="book-modal-title">Добавить книгу</h2>
+            <form id="book-form">
+                <input type="hidden" id="book-id">
+                <div class="form-group">
+                    <label>Название *</label>
+                    <input type="text" id="book-title" required>
+                </div>
+                <div class="form-group">
+                    <label>Автор *</label>
+                    <input type="text" id="book-author" required>
+                </div>
+                <div class="form-group">
+                    <label>ISBN</label>
+                    <input type="text" id="book-isbn" placeholder="978-5-00-000000-0">
+                </div>
+                <div class="form-group">
+                    <label>Год издания</label>
+                    <input type="number" id="book-year" placeholder="2024">
+                </div>
+                <div class="form-group">
+                    <label>Жанр</label>
+                    <input type="text" id="book-genre">
+                </div>
+                <div class="form-group">
+                    <label>Количество экземпляров</label>
+                    <input type="number" id="book-copies" value="1" min="1">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <button type="button" class="btn" onclick="closeBookModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления читателя -->
+    <div id="reader-modal" class="modal">
+        <div class="modal-content">
+            <h2>Добавить читателя</h2>
+            <form id="reader-form">
+                <div class="form-group">
+                    <label>ФИО *</label>
+                    <input type="text" id="reader-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="reader-email" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="reader-phone" placeholder="+7-900-000-0000">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <button type="button" class="btn" onclick="closeReaderModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для выдачи книги -->
+    <div id="loan-modal" class="modal">
+        <div class="modal-content">
+            <h2>Выдать книгу</h2>
+            <form id="loan-form">
+                <div class="form-group">
+                    <label>Книга *</label>
+                    <select id="loan-book" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Читатель *</label>
+                    <select id="loan-reader" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Срок (дней)</label>
+                    <input type="number" id="loan-days" value="14" min="1">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Выдать</button>
+                    <button type="button" class="btn" onclick="closeLoanModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

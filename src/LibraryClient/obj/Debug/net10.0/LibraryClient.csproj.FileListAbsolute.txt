@@ -1,0 +1,15 @@
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\bin\Debug\net10.0\LibraryClient.exe
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\bin\Debug\net10.0\LibraryClient.deps.json
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\bin\Debug\net10.0\LibraryClient.runtimeconfig.json
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\bin\Debug\net10.0\LibraryClient.dll
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\bin\Debug\net10.0\LibraryClient.pdb
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\LibraryClient.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\LibraryClient.AssemblyInfoInputs.cache
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\LibraryClient.AssemblyInfo.cs
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\LibraryClient.csproj.CoreCompileInputs.cache
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\LibraryClient.sourcelink.json
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\LibraryClient.dll
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\refint\LibraryClient.dll
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\LibraryClient.pdb
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\LibraryClient.genruntimeconfig.cache
+C:\Users\Zero\source\repos\LibrarySystem\src\LibraryClient\obj\Debug\net10.0\ref\LibraryClient.dll

@@ -1,0 +1,11 @@
+﻿# Автоматическая настройка источника данных.
+# При первом запуске Grafana подключится к Prometheus по указанному URL.
+apiVersion: 1
+
+datasources:
+  - name: Prometheus              # Имя источника (видно в интерфейсе)
+    type: prometheus               # Тип источника
+    access: proxy                  # Grafana проксирует запросы к Prometheus
+    url: http://prometheus:9090    # URL Prometheus В DOCKER-СЕТИ
+    isDefault: true                # Использовать по умолчанию
+    editable: true                 # Можно редактировать через UI
